@@ -12,7 +12,7 @@ What this app does not do: it installs apps *onto* Tizen. It cannot install the 
 
 ## Watch it work (58 seconds)
 
-[![Connect and install demo — 58 seconds](assets/demo-thumb.jpg)](https://github.com/dev-layiix/layiix-tizen-installer/blob/main/docs/demo-connect-install.mp4)
+[![Connect and install demo — 58 seconds](assets/demo-thumb.jpg)](https://workspace.layiix.com/demo-connect-install.mp4)
 
 Tap the image to play the video right in the browser, no download needed.
 

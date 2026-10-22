@@ -12,7 +12,7 @@ What this app does not do: it installs apps *onto* Tizen. It cannot install the 
 
 ## Watch it work (58 seconds)
 
-<video src="docs/demo-connect-install.mp4" width="270" controls></video>
+<video src="https://github.com/dev-layiix/layiix-tizen-installer/releases/download/v1.11.1/demo-connect-install.mp4" width="270" controls></video>
 
 Recorded on a real phone against the test TV. The TV's IP goes into the *TV* tab (*Scan network* finds the set too), status flips to ONLINE, then a `.wgt` gets picked in *Install*, confirmed, uploaded, verified. The clip closes on the Home tab with the TV still connected. ([Download the video](docs/demo-connect-install.mp4) if it won't play here.)
 

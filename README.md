@@ -10,6 +10,12 @@ Tizen Bridge installs Tizen packages (`.wgt` / `.tpk`) on Samsung Smart TVs stra
 
 What this app does not do: it installs apps *onto* Tizen. It cannot install the Tizen operating system itself, and it does nothing for TVs that don't run Tizen (LG webOS, Android TV, pre-2015 Samsung Orsay). The first-run wizard blocks installation on those platforms and says why.
 
+## Watch it work (58 seconds)
+
+<video src="docs/demo-connect-install.mp4" width="270" controls></video>
+
+Recorded on a real phone against the test TV. The TV's IP goes into the *TV* tab (*Scan network* finds the set too), status flips to ONLINE, then a `.wgt` gets picked in *Install*, confirmed, uploaded, verified. The clip closes on the Home tab with the TV still connected. ([Download the video](docs/demo-connect-install.mp4) if it won't play here.)
+
 ## First-time setup
 
 1. On the TV, open *Apps* and press `1 2 3 4 5` on the remote. Switch *Developer Mode* on.

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema di base: l'aspetto reale (dark Layiix) è gestito da Jetpack Compose (Material3). -->
+    <style name="Theme.LayiixTizenInstaller" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#0B0B12</item>
+        <item name="android:statusBarColor">#0B0B12</item>
+        <item name="android:navigationBarColor">#0B0B12</item>
+    </style>
+</resources>

@@ -1,0 +1,26 @@
+Layiix Tizen Installer — attribuzioni open source
+====================================================
+
+Codice proprio di questo progetto: MIT License (vedi LICENSE).
+
+1) Suz41/Sideload-Tizen-by-Android — MIT License
+   https://github.com/Suz41/Sideload-Tizen-by-Android
+   Usato come riferimento per il formato wire del protocollo SDB su TCP 26101
+   (handshake CNXN, servizi shell/sync/capability, comandi vd_appinstall/pkgcmd).
+   Nessun codice copiato: reimplementazione in Kotlin da formato documentato.
+
+2) Apps2Samsung/Apps2Samsung — MIT License
+   https://github.com/Apps2Samsung/Apps2Samsung
+   Riferimento per flusso installer mobile, gestione certificati lato UX e
+   compatibilità TV/firmware. Nessun codice copiato.
+
+3) TizenTeam/vlc-tizen (verificato esistente, licenza del repo originale)
+   Citato dal brief come app di esempio; nessun codice incorporato.
+
+Librerie (Gradle/Maven Central, licenze dei rispettivi autori):
+- AndroidX (core-ktx, lifecycle, activity-compose), Apache 2.0
+- Jetpack Compose + Material 3 (BOM 2024.10.00), Apache 2.0
+- kotlinx.coroutines (JetBrains), Apache 2.0
+- JUnit 4 (EPL 1.0) — solo test
+
+Testi MIT completi dei progetti 1–2 disponibili nei rispettivi repository.

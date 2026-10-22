@@ -1,0 +1,16 @@
+# Gradle / build
+.gradle/
+build/
+app/build/
+local.properties
+# Chiavi di firma — MAI pubblicare (senza si perdono gli aggiornamenti)
+keystore/
+keystore.properties
+*.jks
+*.keystore
+# IDE
+.idea/
+*.iml
+# OS
+.DS_Store
+Thumbs.db

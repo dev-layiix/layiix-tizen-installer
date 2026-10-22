@@ -315,9 +315,9 @@ fun HomeScreen(manager: ConnectionManager, onGo: (Dest) -> Unit, onWizard: () ->
                 .clip(RoundedCornerShape(16.dp)),
         )
         TvProfileCard(homeContext, onWizard)
-        Kicker("00 // STATUS")
+        Kicker("00 // ${stringResource(R.string.k_status)}")
         StatusCard(status)
-        Kicker("01 // AZIONI")
+        Kicker("01 // ${stringResource(R.string.k_actions)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -331,7 +331,7 @@ fun HomeScreen(manager: ConnectionManager, onGo: (Dest) -> Unit, onWizard: () ->
             }
         }
         if (selected != null) {
-            Kicker("02 // PACCHETTO")
+            Kicker("02 // ${stringResource(R.string.k_pkg)}")
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -480,7 +480,7 @@ fun TvScreen(manager: ConnectionManager) {
     val scroll = rememberScrollState()
 
     Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Kicker("01 // CONNESSIONE")
+        Kicker("01 // ${stringResource(R.string.k_conn)}")
         StatusCard(status)
         Card(
             modifier = Modifier.fillMaxWidth(),
@@ -519,7 +519,7 @@ fun TvScreen(manager: ConnectionManager) {
                 }
             }
         }
-        Kicker("02 // RICERCA")
+        Kicker("02 // ${stringResource(R.string.k_search)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -566,7 +566,7 @@ fun TvScreen(manager: ConnectionManager) {
                 }
             }
         }
-        Kicker("03 // GUIDA")
+        Kicker("03 // ${stringResource(R.string.k_guide)}")
         GuideCard()
     }
 }
@@ -662,7 +662,7 @@ fun InstallScreen(manager: ConnectionManager, onChangeTv: () -> Unit = {}) {
             else -> stringResource(R.string.wiz_other_desc)
         }
         Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Kicker("01 // TV")
+            Kicker("01 // ${stringResource(R.string.k_tv)}")
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = Color(0xFF2A1216)),
@@ -683,9 +683,9 @@ fun InstallScreen(manager: ConnectionManager, onChangeTv: () -> Unit = {}) {
     }
 
     Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Kicker("01 // STATO")
+        Kicker("01 // ${stringResource(R.string.k_state)}")
         StatusCard(status)
-        Kicker("02 // PACCHETTO")
+        Kicker("02 // ${stringResource(R.string.k_pkg)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -768,7 +768,7 @@ fun InstallScreen(manager: ConnectionManager, onChangeTv: () -> Unit = {}) {
                 }
             }
         }
-        Kicker("03 // INSTALLAZIONE")
+        Kicker("03 // ${stringResource(R.string.k_install)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -943,6 +943,17 @@ fun validateBytes(
     return result
 }
 
+/** Nome categoria localizzato (chiavi interne: Framework/Streaming/Gaming/Utility/IPTV). */
+@Composable
+fun catLabel(cat: String): String = when (cat) {
+    "Framework" -> stringResource(R.string.cat_n_framework)
+    "Streaming" -> stringResource(R.string.cat_n_streaming)
+    "Gaming" -> stringResource(R.string.cat_n_gaming)
+    "Utility" -> stringResource(R.string.cat_n_utility)
+    "IPTV" -> stringResource(R.string.cat_n_iptv)
+    else -> cat.uppercase()
+}
+
 // ---------- CATALOGO ----------
 
 private data class DlState(val progress: Float?, val error: String?)
@@ -1025,7 +1036,7 @@ fun CatalogScreen(manager: ConnectionManager, onInstall: () -> Unit) {
     }
 
     Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Kicker("01 // CATALOGO")
+        Kicker("01 // ${stringResource(R.string.k_catalog)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1045,7 +1056,7 @@ fun CatalogScreen(manager: ConnectionManager, onInstall: () -> Unit) {
             }
         }
         for ((i, cat) in com.layiix.tizenbridge.catalog.CatalogApps.categories.withIndex()) {
-            Kicker("${(i + 2).toString().padStart(2, '0')} // ${cat.uppercase()}")
+            Kicker("${(i + 2).toString().padStart(2, '0')} // ${catLabel(cat)}")
             for (app in com.layiix.tizenbridge.catalog.CatalogApps.all.filter { it.category == cat }) {
                 val st = states[app.id]
                 Card(
@@ -1094,7 +1105,7 @@ fun CatalogScreen(manager: ConnectionManager, onInstall: () -> Unit) {
 fun LogsScreen(logs: AppLogStore) {
     val entries by logs.entries.collectAsState()
     val clipboard: ClipboardManager = LocalClipboardManager.current
-    Kicker("01 // LOG")
+    Kicker("01 // ${stringResource(R.string.k_log)}")
     Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxSize()) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(onClick = { clipboard.setText(AnnotatedString(logs.copyText())) }) {
@@ -1133,7 +1144,7 @@ fun MoreScreen(
 ) {
     when (more) {
         MoreDest.MENU -> Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Kicker("00 // MENU")
+            Kicker("00 // ${stringResource(R.string.k_menu)}")
             HomeButton(stringResource(R.string.more_diag), Icons.Filled.Search) { onMore(MoreDest.DIAG) }
             HomeButton(stringResource(R.string.more_settings), Icons.Filled.Settings) { onMore(MoreDest.SETTINGS) }
             HomeButton(stringResource(R.string.more_info), Icons.Filled.Info) { onMore(MoreDest.INFO) }
@@ -1195,7 +1206,7 @@ fun DiagScreen(manager: ConnectionManager, logs: AppLogStore) {
     }
 
     Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Kicker("01 // DIAGNOSTICA")
+        Kicker("01 // ${stringResource(R.string.k_diag)}")
         Button(onClick = { refresh() }, enabled = !busy) {
             Icon(Icons.Filled.Refresh, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
             Text(if (busy) stringResource(R.string.diag_busy) else stringResource(R.string.diag_run))
@@ -1294,7 +1305,7 @@ fun SettingsScreen(manager: ConnectionManager, onRetakeTv: () -> Unit = {}) {
         }
     }
     Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Kicker("01 // RETE")
+        Kicker("01 // ${stringResource(R.string.k_net)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1327,7 +1338,7 @@ fun SettingsScreen(manager: ConnectionManager, onRetakeTv: () -> Unit = {}) {
                 if (saved.isNotBlank()) Text(stringResource(R.string.set_saved), color = LayiixOk)
             }
         }
-        Kicker("02 // TV")
+        Kicker("02 // ${stringResource(R.string.k_tv)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1341,7 +1352,7 @@ fun SettingsScreen(manager: ConnectionManager, onRetakeTv: () -> Unit = {}) {
                 }
             }
         }
-        Kicker("03 // LINGUA")
+        Kicker("03 // ${stringResource(R.string.k_lang)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1359,7 +1370,7 @@ fun SettingsScreen(manager: ConnectionManager, onRetakeTv: () -> Unit = {}) {
                 LangOption("ru", "Русский", lang) { pickLang(context, it) { lang = it } }
             }
         }
-        Kicker("04 // FIRMA")
+        Kicker("04 // ${stringResource(R.string.k_sign)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1460,7 +1471,7 @@ fun SettingsScreen(manager: ConnectionManager, onRetakeTv: () -> Unit = {}) {
                 }
             }
         }
-        Kicker("05 // PRIVACY")
+        Kicker("05 // ${stringResource(R.string.k_privacy)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1512,7 +1523,7 @@ fun InfoScreen() {
     val scroll = rememberScrollState()
     var showLic by remember { mutableStateOf(false) }
     Column(Modifier.verticalScroll(scroll), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Kicker("01 // APP")
+        Kicker("01 // ${stringResource(R.string.k_app)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1538,7 +1549,7 @@ fun InfoScreen() {
                 Text(stringResource(R.string.info_desc), style = MaterialTheme.typography.bodySmall)
             }
         }
-        Kicker("02 // LIMITI")
+        Kicker("02 // ${stringResource(R.string.k_limits)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),
@@ -1555,7 +1566,7 @@ fun InfoScreen() {
                 ).forEach { Text("• $it", style = MaterialTheme.typography.bodySmall) }
             }
         }
-        Kicker("03 // CREDITS")
+        Kicker("03 // ${stringResource(R.string.k_credits)}")
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LayiixSurface2),

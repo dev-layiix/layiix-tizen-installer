@@ -51,7 +51,7 @@ fun TvWizardScreen(onDone: () -> Unit) {
         modifier = Modifier.fillMaxSize().verticalScroll(scroll),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Kicker("GUIDA // TV")
+        Kicker("${stringResource(R.string.k_guide)} // ${stringResource(R.string.k_tv)}")
         Text(
             stringResource(R.string.wiz_title),
             style = MaterialTheme.typography.headlineSmall,

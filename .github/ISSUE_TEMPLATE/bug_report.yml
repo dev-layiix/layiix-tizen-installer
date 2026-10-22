@@ -1,0 +1,49 @@
+name: Bug report
+description: Something failed against a real TV
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing the beta. Fill in what you can — the TV model and the raw TV reply matter most.
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: From More → Info in the app (e.g. 1.11.1).
+    validations:
+      required: true
+  - type: input
+    id: tv-model
+    attributes:
+      label: TV brand and model
+      description: As printed on the TV (e.g. Samsung UE50TU7170).
+    validations:
+      required: true
+  - type: input
+    id: tizen-version
+    attributes:
+      label: Tizen version
+      description: As shown on the app's status card after connecting (e.g. 5.5). Write "unknown" if the TV never connected.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: What you tapped, in order, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste the "Dettaglio TV" block or the copied log. Remove public IPs, credentials, personal IDs and anything sensitive first — see SECURITY.md.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: Same Wi-Fi for phone and TV
+        - label: Developer Mode on, Host IP set to the phone
+        - label: I removed sensitive data from the logs above

@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an app, a translation, or an improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What should change or be added?
+      description: One idea per issue. For catalog apps, link the upstream source (official repo or release) so the package can be verified.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it useful?
+      description: Who benefits and in which situation.
+  - type: input
+    id: tv-model
+    attributes:
+      label: Your TV model (optional)
+      description: Helps judge Tizen-version fit for catalog additions.

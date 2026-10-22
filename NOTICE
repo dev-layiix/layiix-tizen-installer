@@ -14,13 +14,21 @@ Codice proprio di questo progetto: MIT License (vedi LICENSE).
    Riferimento per flusso installer mobile, gestione certificati lato UX e
    compatibilità TV/firmware. Nessun codice copiato.
 
-3) TizenTeam/vlc-tizen (verificato esistente, licenza del repo originale)
-   Citato dal brief come app di esempio; nessun codice incorporato.
+3) Catalogo app: pacchetti .wgt/.tpk scaricati a runtime (non distribuiti
+   in questo repo) dai progetti originali, in particolare
+   Apps2Samsung/tizen-community-packages e rispettivi upstream. Verificare
+   le licenze dei singoli pacchetti presso le fonti prima di
+   ridistribuirli.
 
 Librerie (Gradle/Maven Central, licenze dei rispettivi autori):
 - AndroidX (core-ktx, lifecycle, activity-compose), Apache 2.0
 - Jetpack Compose + Material 3 (BOM 2024.10.00), Apache 2.0
 - kotlinx.coroutines (JetBrains), Apache 2.0
-- JUnit 4 (EPL 1.0) — solo test
+- Apache Santuario xmlsec (firma XMLDSig in-app), Apache 2.0
+- JUnit 4 (EPL 1.0) + Bouncy Castle (licenza Bouncy Castle) — solo test
+
+Certificati CA Samsung VD allegati (assets/samsung-ca/, come in ogni tool
+Tizen): emessi da Samsung per lo sviluppo su TV, inclusi a solo scopo di
+firma pacchetti come fa Tizen Studio.
 
 Testi MIT completi dei progetti 1–2 disponibili nei rispettivi repository.

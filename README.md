@@ -4,40 +4,35 @@
 
 **CONNECT. INSTALL. ENJOY.**
 
-Tizen Bridge installs Tizen packages (`.wgt` / `.tpk`) on Samsung TVs straight from an Android phone over Wi-Fi. No PC, no Tizen Studio, no cables.
+Tizen Bridge installs Tizen packages (`.wgt` / `.tpk`) on Samsung Smart TVs straight from an Android phone over Wi-Fi. No PC, no Tizen Studio, no cables.
 
-## What it does
+> **Beta status.** So far the app has been tested on one TV only: the author's Samsung UE50TU7170 (2020, Tizen 5.5). Everything else in [COMPATIBILITY.md](COMPATIBILITY.md) is marked **Untested** — it may work, or the TV may refuse at its own checks. If you try another model, please report how it went with the [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml).
 
-- Pushes a `.wgt` or `.tpk` to the TV over the local network (SDB, port 26101) and runs the on-TV installer.
-- Ships a curated catalog of 38 verified community apps (Jellyfin, Stremio, Moonlight, Kodi remotes, IPTV players, emulators). Packages without a signature are signed inside the app before upload.
-- Validates every package before sending it: extension, ZIP integrity, manifest, app ID, required Tizen version against the connected TV.
-- First-run wizard asks for the TV brand and model year, estimates the Tizen version, and blocks installation on platforms the app can't serve (LG webOS, Android TV, pre-2015 Orsay).
-- Speaks five languages (English, Italian, Spanish, Portuguese, Russian), picked up from the system and overridable in Settings.
-- Keeps diagnostics on the device: connection log, LAN scan, SDB capability readout. No account, no analytics, no uploads.
+What this app does not do: it installs apps *onto* Tizen. It cannot install the Tizen operating system itself, and it does nothing for TVs that don't run Tizen (LG webOS, Android TV, pre-2015 Samsung Orsay). The first-run wizard blocks installation on those platforms and says why.
 
-## Requirements
+## First-time setup
 
-- A Samsung Smart TV (Tizen) with Developer Mode on, on the same Wi-Fi as the phone.
-- Android 8.0+ (minSdk 26).
+1. On the TV, open *Apps* and press `1 2 3 4 5` on the remote. Switch *Developer Mode* on.
+2. Set the *Host IP* to the phone's Wi-Fi address. The app shows it under *More → Diagnostics*.
+3. Hold Power for 5 seconds to reboot the TV, then accept the connection prompt on screen.
+
+## Connecting
+
+Open the *TV* tab and enter the TV's IP address (port defaults to `26101`), or run *Scan network*. The status card reads *ONLINE* only after a real SDB handshake succeeds. The phone and the TV must stay on the same Wi-Fi network.
+
+## Everyday installs
+
+Pick the *Catalog* tab for a one-tap download from 38 verified community apps, or *Install* to choose a local `.wgt` / `.tpk` file. Every package is validated before upload (extension, ZIP integrity, manifest, app ID, required Tizen version against the connected TV) and signed when needed. The app reports what the TV answers, including the raw installer output when something fails.
 
 ## Install the APK
 
 Download: **https://workspace.layiix.com/layiix-tizen-installer.apk**
 
-Open the link on the phone and confirm the install. Android asks once to allow installs from unknown sources.
+Open the link on the phone and confirm. Android asks once to allow installs from unknown sources. (Android 8.0+, no account needed.)
 
-## Pair the TV
+## Languages and privacy
 
-1. On the TV, open *Apps* and press `1 2 3 4 5` on the remote. Switch *Developer Mode* on.
-2. Set the *Host IP* to the phone's Wi-Fi address. The app shows it under *More → Diagnostics*.
-3. Hold Power for 5 seconds to reboot the TV, then accept the connection prompt on screen.
-4. In the app, open the *TV* tab and enter the TV's IP (port defaults to `26101`), or run *Scan network*. The status card reads *ONLINE* only after a real SDB handshake.
-
-The phone and the TV must stay on the same Wi-Fi network.
-
-## Install an app
-
-Pick the *Catalog* tab for a one-tap download, or *Install* to choose a local `.wgt` / `.tpk` file. The app validates the package, signs it if needed, uploads it, and reports what the TV answers — including the raw installer output when something fails.
+Five interface languages (English, Italian, Spanish, Portuguese, Russian), taken from the system and overridable in Settings. No account, no analytics, no uploads — logs and diagnostics stay on the phone.
 
 ## Build from source
 
@@ -56,7 +51,7 @@ Unit tests (52, JVM-only, no device needed):
 gradlew.bat testDebugUnitTest
 ```
 
-Release builds are signed with a local keystore (`keystore/` + `keystore.properties`, intentionally not committed).
+Release builds are signed with a local keystore (`keystore/` + `keystore.properties`, intentionally not committed — see [SECURITY.md](SECURITY.md)). How a release is cut is documented in [docs/RELEASING.md](docs/RELEASING.md).
 
 ## Troubleshooting
 
@@ -64,7 +59,7 @@ Release builds are signed with a local keystore (`keystore/` + `keystore.propert
 |---|---|---|
 | Closed port / timeout | Developer Mode off, wrong IP | Follow the in-app guide on the TV tab |
 | Handshake refused | Authorization prompt ignored | Accept it on the TV screen |
-| Error -11 (signature) | Package unsigned | The app signs automatically; for stubborn cases import your own Samsung certificate under Settings → Signing |
+| Error -11 (signature) | Package unsigned | The app signs automatically with bundled community certificates, or import your own under Settings → Signing |
 | Error -12 (certificate) | Certificate issued for another TV (DUID) | Use a package signed for this TV |
 | Error 116 | TV storage full | Settings → Support → Device Care → Manage Storage, then retry |
 | Error -14 | Partner/platform privileges | Can't be sideloaded; pick a compatible app |
@@ -73,15 +68,13 @@ Release builds are signed with a local keystore (`keystore/` + `keystore.propert
 ## Known limits
 
 - Signature checks run on the TV, not in the app. Bundled community certificates cover the catalog; packages tied to another TV's DUID still need their own certificate.
-- Files are held in memory during upload (phone-side cap around 250 MB).
+- Files are held in memory during upload (phone-side cap of 250 MB).
 - LAN auto-scan is best-effort; some networks block it, so manual IP entry stays available.
 
 ## Stack
 
-Kotlin, Jetpack Compose (Material 3), coroutines. Tizen package signing (XMLDSig) and the SDB client are implemented in-app; test coverage is unit-level over the pure logic (protocol framing, validation, signing, error mapping).
+Kotlin, Jetpack Compose (Material 3), coroutines. The SDB client and Tizen package signing (XMLDSig) are implemented in-app; unit tests cover the pure logic (protocol framing, validation, signing, error mapping). Third-party code and assets are attributed in [NOTICE](NOTICE).
 
 ## License / credits
 
-Own code: MIT (see `LICENSE`). The SDB protocol work was done studying the MIT-licensed projects `Suz41/Sideload-Tizen-by-Android` and `Apps2Samsung/Apps2Samsung`; attributions in `NOTICE`.
-
-Built by [LΛYIIX](https://layiix.com).
+Own code: MIT (see `LICENSE`). Built by [LΛYIIX](https://layiix.com).
